@@ -1,0 +1,10 @@
+data <- read.csv("./htseq.exon_intron.merged.txt",sep="\t")
+downsampled <- data
+downsampled[,2:41] <- t( apply(data[,2:41],1,function(x){ return( rbinom(rep(1,40),x,0.1) ) } ) )
+write.table(downsampled, "./htseq.exon_intron.merged.downsampled_10fold.txt",sep="\t",quote=F,row.names=F)
+downsampled[,2:41] <- t( apply(data[,2:41],1,function(x){ return( rbinom(rep(1,40),x,0.02) ) } ) )
+write.table(downsampled, "./htseq.exon_intron.merged.downsampled_50fold.txt",sep="\t",quote=F,row.names=F)
+downsampled[,2:41] <- t( apply(data[,2:41],1,function(x){ return( rbinom(rep(1,40),x,0.01) ) } ) )
+write.table(downsampled, "./htseq.exon_intron.merged.downsampled_100fold.txt",sep="\t",quote=F,row.names=F)
+downsampled[,2:41] <- t( apply(data[,2:41],1,function(x){ return( rbinom(rep(1,40),x,0.005) ) } ) )
+write.table(downsampled, "./htseq.exon_intron.merged.downsampled_200fold.txt",sep="\t",quote=F,row.names=F)

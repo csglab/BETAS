@@ -64,7 +64,7 @@ rm -f `cat $metadata | sed 1d | cut -f1`
 To run BETAS, use the following command:
 
 ```bash
-./bin/BETAS -meta \<metadata_file.txt\> -counts \<readcount_file.txt\> -out \<output_file.out.txt\>
+./bin/BETAS -meta <metadata_file.txt> -counts <readcount_file.txt> -out <output_file.out.txt>
 ```
 
 BETAS has other parameters for tuning its behaviour, but they are experimental at this moment, and should not be modified.

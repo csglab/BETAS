@@ -223,6 +223,7 @@ void _Metropolis_Hastings_per_group(
 		genes[ i ] ->ne2 = 0;
 		
 		for( j = 0; j < num_arrays; j ++ )
+		{
 			if( arrays[ j ] ->group_index == group_index ) // update ni2 and ne2
 			{
 				if( arrays[ j ] ->ei == INTRONIC )
@@ -230,13 +231,17 @@ void _Metropolis_Hastings_per_group(
 				else
 					genes[ i ] ->ne2 += genes[ i ] ->profile[ j ];
 			}
+			//else
+			//{
+			// in the new version, ni1 and ne1 are equal to the sum over all samples, without excluding this group_index
+
+			if( arrays[ j ] ->ei == INTRONIC ) // update ni1 and ne1
+				genes[ i ] ->ni1 += genes[ i ] ->profile[ j ];
 			else
-			{
-				if( arrays[ j ] ->ei == INTRONIC ) // update ni1 and ne1
-					genes[ i ] ->ni1 += genes[ i ] ->profile[ j ];
-				else
-					genes[ i ] ->ne1 += genes[ i ] ->profile[ j ];
-			}
+				genes[ i ] ->ne1 += genes[ i ] ->profile[ j ];
+
+			//}
+		}
 			
 		Ni1 += genes[ i ] ->ni1;
 		Ne1 += genes[ i ] ->ne1;

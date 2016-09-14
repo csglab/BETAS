@@ -102,4 +102,4 @@ For example:
 ```bash
 bash ./src/_shell/ExtractSample.sh ./examples/human.20tissues/metadata.txt ./examples/human.20tissues/htseq.exon_intron.merged.txt Brain Brain.metadata.txt Brain.exon_intron_counts.txt
 ```
-will create two new files, `Brain.metadata.txt` and `Brain.exon_intron_counts.txt`, that can now be used as input to BETAS.
+This will create two new files, `Brain.metadata.txt` and `Brain.exon_intron_counts.txt`, which can now be used as input to BETAS.

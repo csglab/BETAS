@@ -89,3 +89,17 @@ The above columns are repeated in the output file for each sample, with the samp
 #### Example
 
 An example dataset is provided at `./examples/mouse.GM_2D`. Simply go to this folder, and run `bash run.BETAS.sh`. It should automatically create the read count table from htseq-count files that are in `./examples/mouse.GM_2D/htseq`, and run BETAS. The output will be written to `./examples/mouse.GM_2D/betas.out`. Two log files will also be created; the file `mouse.GM_2D.BETAS.cerr.log` will contain the acceptance rate for the MCMC simulation (useful for debugging), and the file `mouse.GM_2D.BETAS.cout.log` will contain the main messages that are printed by BETAS. The main output file of BETAS with the estimated abundances will be `mouse.GM_2D.BETAS.out.txt`.
+
+#### Running BETAS on only one sample
+
+The Shell script `./src/_shell/ExtractSample.sh` can be used to extract the columns that correspond to one particular sample from a read count data file that contains many samples. The usage is:
+
+```bash
+bash ./src/_shell/ExtractSample.sh <metadata_file.txt> <readcount_file.txt> <sample_label> <new_metadata_file.txt> <new_readcount_file.txt>
+```
+
+For example:
+```bash
+bash ./src/_shell/ExtractSample.sh ./examples/human.20tissues/metadata.txt ./examples/human.20tissues/htseq.exon_intron.merged.txt Brain Brain.metadata.txt Brain.exon_intron_counts.txt
+```
+will create two new files, `Brain.metadata.txt` and `Brain.exon_intron_counts.txt`, that can now be used as input to BETAS.

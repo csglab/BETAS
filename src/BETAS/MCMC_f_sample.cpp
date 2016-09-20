@@ -45,8 +45,8 @@ double _get_f_log_likelihood(
 	double rb_stdev,
 	double rab_cor,
 	double rab_var,
-	int na1,
-	int Na1,
+	double na1,
+	double Na1,
 	int distribution )
 // new_fa1: the newly proposed value for f
 // old_fa1: the previous value for f
@@ -117,8 +117,8 @@ double sample_f(
 	double rb_stdev,
 	double rab_cor,
 	double rab_var,
-	int na1,
-	int Na1,
+	double na1,
+	double Na1,
 	int distribution )
 // returns a newly sampled fa1
 //
@@ -169,7 +169,7 @@ double sample_f(
 		new_fa1 = generate_normal_random( E_x, 2.38 * stdev_x );
 	//}
 	
-	if( new_fa1 < 0 || new_fa1 > 1 ) // if the new fa1 is out of boundaries, it is automatically rejected (its prior is zero)
+	if( new_fa1 <= 0 || new_fa1 >= 1 ) // if the new fa1 is out of boundaries, it is automatically rejected (its prior is zero); zero is not allowed, in order to prevent taking log of zero
 		return old_fa1;
 
 	// calculate the ratio of the probabilities of the new vs. old value	

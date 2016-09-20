@@ -39,14 +39,14 @@ void _Metropolis_Hastings_per_gene(
 	double re_stdev,
 	double rei_cor,
 	double rei_var,
-	int ni1,
-	int ne1,
-	int ni2,
-	int ne2,
-	int Ni1,
-	int Ne1,
-	int Ni2,
-	int Ne2,
+	double ni1,
+	double ne1,
+	double ni2,
+	double ne2,
+	double Ni1,
+	double Ne1,
+	double Ni2,
+	double Ne2,
 	int distribution,
 	int burn_in,
 	int sampling,
@@ -208,10 +208,10 @@ void _Metropolis_Hastings_per_group(
 	int sampling )
 // performs the MH algorithm for group_index
 {
-	int Ni1 = 0;
-	int Ne1 = 0;
-	int Ni2 = 0;
-	int Ne2 = 0;
+	double Ni1 = 0;
+	double Ne1 = 0;
+	double Ni2 = 0;
+	double Ne2 = 0;
 
 	// initialize ni1, ne1, ni2 and ne2 parameters for each gene	
 	int i, j;

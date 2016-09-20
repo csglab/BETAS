@@ -169,15 +169,15 @@ struct s_gene
 	char *name; // the name of this gene, as read from the input FASTA file
 	int index; // the index of this gene in the s_gene object
 	
-	int *profile; // the read count profile, as read from the input file; the number and order match that of s_array object
+	double *profile; // the read count profile, as read from the input file; the number and order match that of s_array object
 
 
 	// read counts for intronic (i) and exonic (e) reads, for the active group (2) and other groups (1)
-	int ni1;
-	int ne1;
-	int ni2;
-	int ne2;
-	int min_n;
+	double ni1;
+	double ne1;
+	double ni2;
+	double ne2;
+	double min_n;
 	double min_f;
 	double var_log_f;
 	

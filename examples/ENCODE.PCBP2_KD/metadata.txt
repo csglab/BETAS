@@ -1,0 +1,5 @@
+#read_set	sample	read_type
+ENCSR648QFY_PCBP2_shRNA_11.exon	ENCSR648QFY_PCBP2_shRNA_11	exonic
+ENCSR648QFY_PCBP2_shRNA_11.intron	ENCSR648QFY_PCBP2_shRNA_11	intronic
+All.exon	All	exonic
+All.intron	All	intronic

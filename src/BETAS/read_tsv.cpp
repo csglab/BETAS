@@ -114,7 +114,7 @@ bool read_tsv(
 		_COPY_STR( genes[ i ] ->name, gene_name );
 		
 		// allocate memory to the profile
-		genes[ i ] ->profile = new int[ *num_arrays ];
+		genes[ i ] ->profile = new double[ *num_arrays ];
 				
 		// extract and store the profile
 		int j;
@@ -132,7 +132,7 @@ bool read_tsv(
 				strcmp( value, "NAN" ) == 0 ) // this is not a number
 				genes[ i ] ->profile[ j ] = 0;
 			else
-				genes[ i ] ->profile[ j ] = atoi( value ); // this is a number
+				genes[ i ] ->profile[ j ] = atof( value ); // this is a number
 		}
 		
 		// update the number of genes

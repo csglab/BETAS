@@ -57,10 +57,10 @@ void learn_prior(
 	double EY2 = sumY2/sue_w;
 	double EXY = sumXY/sue_w;
 	
-	*ri_average = EX;
-	*ri_stdev = sqrt( EX2 - EX*EX);
-	*re_average = EY;
-	*re_stdev = sqrt( EY2 - EY*EY);
+	*re_average = EX;
+	*re_stdev = sqrt( EX2 - EX*EX);
+	*ri_average = EY;
+	*ri_stdev = sqrt( EY2 - EY*EY);
 	*rei_cor = ( EXY - EX*EY ) / sqrt( EX2 - EX*EX ) / sqrt( EY2 - EY*EY );
 	*rei_var = sumD2/sue_w - sumD/sue_w * sumD/sue_w;	
 }

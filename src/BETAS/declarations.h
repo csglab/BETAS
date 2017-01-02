@@ -43,7 +43,7 @@ bool open_metadata( const char *file, s_array *arrays[], int num_arrays, s_group
 bool read_tsv( ifstream &ifs, s_gene *genes[], int *num_genes, s_array *arrays[], int *num_arrays, char this_EOL );
 bool read_metadata( ifstream &ifs, s_array *arrays[], int num_arrays, s_group *groups[], int *num_groups, char this_EOL );
 
-int optimize_cor( s_gene *genes[], int num_genes, double Ni1, double Ne1, double Ni2, double Ne2, double *ri_average, double *ri_stdev, double *re_average, double *re_stdev, double *rei_cor, double *rei_var );
+void learn_prior( s_gene *genes[], int num_genes, int group_index, double *ri_average, double *ri_stdev, double *re_average, double *re_stdev, double *rei_cor, double *rei_var );
 double sample_f( double old_fa1, double fa2, double fb1, double fb2, double ra_average, double ra_stdev, double rb_average, double rb_stdev, double rab_cor, double rab_var, double na1, double Na1, int distribution );
 void Metropolis_Hastings( s_gene *genes[], int num_genes, s_array *arrays[], int num_arrays, s_group *groups[], int num_groups, int distribution, int learn, int burn_in, int sampling );
 

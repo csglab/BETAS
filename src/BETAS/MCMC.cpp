@@ -250,34 +250,37 @@ void _Metropolis_Hastings_per_group(
 	}
 	
 	// optimize the correlation of dfi and dfe, and obtain the parameters of their joint distribution
-	double ri_average, ri_stdev, re_average, re_stdev, rei_cor, rei_var;
-	if( learn ) // the parameters of the prior distribution will be learned from data
+	double ri_average=0, ri_stdev=0, re_average=0, re_stdev=0, rei_cor=0, rei_var=0;
+	if( distribution != UNIFORM )
 	{
-		int max_pos = optimize_cor( genes, num_genes, Ni1, Ne1, Ni2, Ne2, &ri_average, &ri_stdev, &re_average, &re_stdev, &rei_cor, &rei_var );
-		cout << "Distribution statistics, learned from the top " << max_pos << " most abundant genes:" << endl
-			<< "Mean  log(fi2/fi)             = " << ri_average << endl
-			<< "Stdev log(fi2/fi1)            = " << ri_stdev << endl
-			<< "Mean  log(fe2/fe1)            = " << re_average << endl
-			<< "Stdev log(fe2/fe1)            = " << re_stdev << endl
-			<< "Pearson correlation           = " << rei_cor << endl
-			<< "Var log(fe2/fe1)-log(fi2/fi1) = " << rei_var << endl;
-	}
-	else // the parameters of the prior distribution have been given in the metadata file
-	{
-		ri_average = groups[ group_index ] ->ri_average;
-		ri_stdev = groups[ group_index ] ->ri_stdev;
-		re_average = groups[ group_index ] ->re_average;
-		re_stdev = groups[ group_index ] ->re_stdev;
-		rei_cor = groups[ group_index ] ->rei_cor;
-		rei_var = groups[ group_index ] ->rei_var;
+		if( learn ) // the parameters of the prior distribution will be learned from data
+		{
+			learn_prior( genes, num_genes, group_index, &ri_average, &ri_stdev, &re_average, &re_stdev, &rei_cor, &rei_var );
+			cout << "Distribution statistics:" << endl
+				<< "Mean  log(fi2/fi)             = " << ri_average << endl
+				<< "Stdev log(fi2/fi1)            = " << ri_stdev << endl
+				<< "Mean  log(fe2/fe1)            = " << re_average << endl
+				<< "Stdev log(fe2/fe1)            = " << re_stdev << endl
+				<< "Pearson correlation           = " << rei_cor << endl
+				<< "Var log(fe2/fe1)-log(fi2/fi1) = " << rei_var << endl;
+		}
+		else // the parameters of the prior distribution have been given in the metadata file
+		{
+			ri_average = groups[ group_index ] ->ri_average;
+			ri_stdev = groups[ group_index ] ->ri_stdev;
+			re_average = groups[ group_index ] ->re_average;
+			re_stdev = groups[ group_index ] ->re_stdev;
+			rei_cor = groups[ group_index ] ->rei_cor;
+			rei_var = groups[ group_index ] ->rei_var;
 
-		cout << "Distribution statistics, from the metadata file or default values:" << endl
-			<< "Mean  log(fi2/fi)             = " << ri_average << endl
-			<< "Stdev log(fi2/fi1)            = " << ri_stdev << endl
-			<< "Mean  log(fe2/fe1)            = " << re_average << endl
-			<< "Stdev log(fe2/fe1)            = " << re_stdev << endl
-			<< "Pearson correlation           = " << rei_cor << endl
-			<< "Var log(fe2/fe1)-log(fi2/fi1) = " << rei_var << endl;
+			cout << "Distribution statistics, from the metadata file or default values:" << endl
+				<< "Mean  log(fi2/fi)             = " << ri_average << endl
+				<< "Stdev log(fi2/fi1)            = " << ri_stdev << endl
+				<< "Mean  log(fe2/fe1)            = " << re_average << endl
+				<< "Stdev log(fe2/fe1)            = " << re_stdev << endl
+				<< "Pearson correlation           = " << rei_cor << endl
+				<< "Var log(fe2/fe1)-log(fi2/fi1) = " << rei_var << endl;
+		}
 	}
 	
 	// now, for each gene, sample the distribution parameters of f-related values
@@ -344,6 +347,16 @@ void Metropolis_Hastings(
 	}
 
 	
+	if( distribution != UNIFORM ) // first, learn the f-values using uniform distribution, and then use the estimates to derive the prior for non-uniform distributions	
+		for( i = 0; i < num_groups; i ++ )
+		{
+			cout << endl << "## Learning priors for group " << groups[ i ] ->name << " ..." << endl;
+			_Metropolis_Hastings_per_group( genes, num_genes, arrays, num_arrays, groups, i,
+				UNIFORM, learn, burn_in, sampling );
+		}
+
+	cout << endl << endl;
+
 	// run the MCMC
 	for( i = 0; i < num_groups; i ++ )
 	{

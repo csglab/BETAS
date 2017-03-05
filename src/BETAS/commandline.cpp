@@ -56,11 +56,11 @@ static s_command_parameter _command_parameters[] = {
 	{	"The prior distribution type for MCMC (0: Normal -- 1: Laplace -- 2: Linear Gradient -- 3: Uniform)",
 		"-dist", _TYPE_INT, true, true, 3, 0.0, "None" },
 	{	"Learn prior distribution based on data (0: False, use parameters from metadata file -- 1: True, learn prior distribution from data)",
-		"-learn", _TYPE_INT, true, true, 0, 0.0, "None" },
+		"-learn", _TYPE_INT, true, true, 1, 0.0, "None" },
 	{	"The burn-in iterations for MCMC",
 		"-burn", _TYPE_INT, true, true, 500, 0.0, "None" },
 	{	"The sampling iterations for MCMC",
-		"-samp", _TYPE_INT, true, true, 2000, 0.0, "None" },
+		"-samp", _TYPE_INT, true, true, 1000, 0.0, "None" },
 	{	"Output file prefix",
 		"-out"  , _TYPE_STRING, true, false, 0, 0.0, "None" } };
 
